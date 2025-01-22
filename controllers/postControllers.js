@@ -1,13 +1,20 @@
 import posts from '../models/post.js'; // Importa array post
+import connection from '../config/db.js';
 
 function index(req, res) {
     const { tag } = req.query; // Estrae tag da query string
-    let ris = posts;
+    let query = 'SELECT * FROM posts';
     if (tag) {
-        ris = posts.filter(post => post.tag.includes(tag.toLowerCase()));
+        query += ` WHERE tags LIKE '%${tag}%'`;
     }
-    res.json(ris);
+    connection.query(query, (err, results) => {
+        if (err) {
+          return res.status(500).json({ error: err.message });
+        }
+        res.json(results);
+      });
 }
+
 
 function show(req, res) {
     const id = parseInt(req.params.id);
