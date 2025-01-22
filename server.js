@@ -7,10 +7,14 @@ import postsRouter from './routers/posts.js';//Importa router con operazioni per
 import notFound from './middlewares/notFound.js';
 import errorHandler from './middlewares/errorHandler.js';
 import cors from 'cors';
+import './config/db.js';
+
+
 const app = express(); //Variabile che contene express
 const port = process.env.PORT || 3000; //porta sulla quale si posiziona il server
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
 
 
 app.use(cors());
